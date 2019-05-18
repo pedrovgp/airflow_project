@@ -1,0 +1,7 @@
+pandas
+sqlalchemy
+psycopg2
+xlrd
+xlwt
+xlsxwriter
+#sqlite
