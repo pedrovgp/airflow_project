@@ -27,7 +27,10 @@ with DAG('gnucash_pipe', default_args=default_args) as dag:
         task_id='gnucash_extract_from_itau',
         provide_context=True,
         python_callable=ContainerLauncher('gnucash_extract_from_itau', 
-                                          run_kwargs={'volumes':{'/home/pv/Dropbox/documentos/financas/controle': {'bind': '/home/pv/Dropbox/documentos/financas/controle', 'mode': 'rw'}},
-                                                      'network_mode':'host'}).run
+                                          run_kwargs={
+                                              'volumes':{'/home/pv/Dropbox/documentos/financas/controle': {'bind': '/home/pv/Dropbox/documentos/financas/controle', 'mode': 'rw'}},
+                                              'network_mode':'host' #This actually enables local postgres to be found (not airflow db server)
+    }
+                                          ).run
     )
 
