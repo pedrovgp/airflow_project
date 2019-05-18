@@ -11,9 +11,11 @@ services:
       - POSTGRES_PASSWORD=airflow
       - POSTGRES_DB=airflow
     # Uncomment these lines to persist data on the local filesystem.
-    #     - PGDATA=/var/lib/postgresql/data/pgdata
-    # volumes:
-    #     - ./pgdata:/var/lib/postgresql/data/pgdata
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5433:5432"
 
   webserver:
     image: puckel-airflow-with-docker-inside:latest
@@ -25,9 +27,9 @@ services:
       - LOAD_EX=n
       - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
       - EXECUTOR=Celery
-      # - POSTGRES_USER=airflow
-      # - POSTGRES_PASSWORD=airflow
-      # - POSTGRES_DB=airflow
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
       # - REDIS_PASSWORD=redispass
     volumes:
       - ./requirements.txt:/requirements.txt
@@ -68,9 +70,9 @@ services:
       - LOAD_EX=n
       - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
       - EXECUTOR=Celery
-      # - POSTGRES_USER=airflow
-      # - POSTGRES_PASSWORD=airflow
-      # - POSTGRES_DB=airflow
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
       # - REDIS_PASSWORD=redispass
     command: scheduler
 
@@ -79,6 +81,7 @@ services:
     restart: always
     depends_on:
       - scheduler
+      - postgres
     volumes:
       - ./dags:/usr/local/airflow/dags
       - ./requirements.txt:/requirements.txt
