@@ -85,7 +85,7 @@ services:
     volumes:
       - ./dags:/usr/local/airflow/dags
       - ./requirements.txt:/requirements.txt
-      - /home/pv/Dropbox/documentos/financas/controle:/home/pv/Dropbox/documentos/financas/controle
+      #- /home/pv/Dropbox/documentos/financas/controle:/home/pv/Dropbox/documentos/financas/controle
     environment:
       - DOCKER_HOST=tcp://socat:2375
       - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
